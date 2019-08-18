@@ -34,7 +34,7 @@ public class EchoServer {
             ds.receive(DpReceive);
 
             DatagramPacket ackSend = new DatagramPacket(seqIn, seqIn.length, ip, 2345);
-            // ackMessage.send(ackSend);
+            ackMessage.send(ackSend);
             System.out.println("ACK send will be: " + seqIn);
             // ackMessage.close();
 

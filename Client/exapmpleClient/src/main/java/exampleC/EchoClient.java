@@ -17,18 +17,6 @@ import javax.swing.Timer;
 
 public class EchoClient {
 
-	private static class reciveClass {
-		DatagramPacket DpReceive = null;
-		DatagramSocket respon = new DatagramSocket(2345);
-		byte[] receive = new byte[65535];
-		respon = null;
-		implements Runnable {
-			public void run() {
-
-			}
-		}
-	}
-
 	public static void main(String args[]) throws IOException {
 		Scanner sc = new Scanner(System.in);
 
@@ -44,7 +32,6 @@ public class EchoClient {
 		// message recive
 
 		DatagramPacket DpSend = null;
-		
 
 		boolean ackOk = false;
 
@@ -71,22 +58,63 @@ public class EchoClient {
 
 			Timer timer = new Timer(1000, new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//System.out.println("Timer!");
+					// System.out.println("Timer!");
 				}
 			});
-
 			timer.start();
 
-			// rdt2.0
-			DpReceive = new DatagramPacket(receive, receive.length);
-			respon.receive(DpReceive);
-			System.out.println("despues del recibe");
-			ackOk = (receive[0] == seq[0]) && (receive[1] == seq[1]);
-			// System.out.println("ACK " + ackOk);
-			System.out.println("ACK recibe: " + seq);
+			Thread t = new Thread(new reciveClass(seq,ackOk));
+			t.start();
+
+			System.out.println(ackOk);
+			
+			while ( ackOk ){
+				System.out.println("Entra al while del t");
+			}
 
 			if (inp.equals("bye"))
 				break;
+
+		}
+	}
+
+	private static class reciveClass implements Runnable {
+
+		byte[] seqIn;
+		boolean ackOk;
+
+		reciveClass(byte[] seqIn, boolean ack) {
+			this.seqIn = seqIn;
+			this.ackOk = ack;
+		}
+
+		public void run() {
+
+			DatagramPacket DpReceive = null;
+			DatagramSocket respon;
+			boolean ackOk = false;
+
+			try {
+				respon = new DatagramSocket(2345);
+			} catch (SocketException e) {
+				e.printStackTrace();
+			}
+			byte[] receive = new byte[65535];
+
+			respon = null;
+
+			// rdt2.0
+			DpReceive = new DatagramPacket(receive, receive.length);
+			try {
+				respon.receive(DpReceive);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			System.out.println("despues del recibe");
+			this.ackOk = (receive[0] == this.seqIn[0]) && (receive[1] == this.seqIn[1]);
+			// System.out.println("ACK " + ackOk);
+			System.out.println("ACK recibe: " + this.seqIn);
 
 		}
 	}
