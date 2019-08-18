@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - EchoClient",
+            "request": "launch",
+            "mainClass": "exampleC.EchoClient",
+            "projectName": "exapmpleClient"
+        }
+    ]
+}
