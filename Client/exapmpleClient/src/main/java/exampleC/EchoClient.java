@@ -8,35 +8,46 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.Scanner;
-import java.util.TimerTask;
 
 import javax.swing.Timer;
 
 public class EchoClient {
+
+	private static boolean ackOk = false;
+	private static InetAddress ip = null;
+
+	private static DatagramPacket DpSend = null;
+	private static DatagramSocket ds = null;
+	private static byte buf[] = null;
+	private static byte mes[] = null;
+	private static byte seq[] = null;
+
+		
+	private static DatagramSocket respon = null;
+	private static DatagramPacket DpReceive = null;
+	private static byte[] receive = new byte[65535];
+
+	private static int count = 0;
 
 	public static void main(String args[]) throws IOException {
 		Scanner sc = new Scanner(System.in);
 
 		// Step 1:Create the socket object for
 		// carrying the data.
-		DatagramSocket ds = new DatagramSocket();
-		InetAddress ip = InetAddress.getLocalHost();
-		byte buf[] = null;
+		ds = new DatagramSocket();
+		ip = InetAddress.getLocalHost();
+		
 
 		// rdt2.0
-		byte mes[] = null;
-		byte seq[] = null;
+
 		// message recive
 
-		DatagramPacket DpSend = null;
-
-		boolean ackOk = false;
-
+		respon = new DatagramSocket(2345);
+		
 		while (true) {
-
+			count = 0;
+			
 			String inp = sc.nextLine();
 
 			// convert the String input into the byte array.
@@ -56,65 +67,58 @@ public class EchoClient {
 			DpSend = new DatagramPacket(mes, mes.length, ip, 1234);
 			ds.send(DpSend);
 
-			Timer timer = new Timer(1000, new ActionListener() {
+			if (inp.equals("bye")) {
+				//ds.close();
+				break;
+			}
+
+
+			Timer timer = new Timer(3000, new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					// System.out.println("Timer!");
+					if ((!ackOk) && (count < 3)){
+						try {
+							System.out.println("Did't recive the ACK, sending again");
+							ds.send(DpSend);
+							count++;
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+					}
+
 				}
 			});
 			timer.start();
 
-			Thread t = new Thread(new reciveClass(seq,ackOk));
+			Thread t = new Thread(new reciveClass());
 			t.start();
 
-			System.out.println(ackOk);
-			
-			while ( ackOk ){
-				System.out.println("Entra al while del t");
-			}
 
-			if (inp.equals("bye"))
-				break;
+			
 
 		}
 	}
 
 	private static class reciveClass implements Runnable {
 
-		byte[] seqIn;
-		boolean ackOk;
 
-		reciveClass(byte[] seqIn, boolean ack) {
-			this.seqIn = seqIn;
-			this.ackOk = ack;
-		}
 
-		public void run() {
-
-			DatagramPacket DpReceive = null;
-			DatagramSocket respon;
-			boolean ackOk = false;
-
-			try {
-				respon = new DatagramSocket(2345);
-			} catch (SocketException e) {
-				e.printStackTrace();
-			}
-			byte[] receive = new byte[65535];
-
-			respon = null;
-
-			// rdt2.0
-			DpReceive = new DatagramPacket(receive, receive.length);
-			try {
+		public void run() {	
+			try {			
+				// rdt2.0
+				DpReceive = new DatagramPacket(receive, receive.length);
 				respon.receive(DpReceive);
+				int first = receive[0];
+				int second = receive[1];
+				ackOk = (first==seq[0]) && (second==seq[1]);
+				if (ackOk) {
+					System.out.println("Message was recive.");
+				}
+				receive = new byte[65535];
+
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
-			System.out.println("despues del recibe");
-			this.ackOk = (receive[0] == this.seqIn[0]) && (receive[1] == this.seqIn[1]);
-			// System.out.println("ACK " + ackOk);
-			System.out.println("ACK recibe: " + this.seqIn);
 
 		}
 	}
@@ -123,15 +127,20 @@ public class EchoClient {
 		byte[] ret = seq;
 		if (ret == null) {
 			ret = new byte[2];
-			ret[0] = Byte.MIN_VALUE;
-			ret[1] = Byte.MIN_VALUE;
+			ret[0] = (byte) 0;
+			ret[1] = (byte) 0;
 		} else {
 			if (ret[1] == Byte.MAX_VALUE) {
 				ret[0]++;
-			} else {
+				ret[1] = (byte) 0;
+			} else if (ret[0] == Byte.MAX_VALUE){
+				ret[0] = (byte) 0 ;
+				ret[1] = (byte) 0 ;
+			} else {	
 				ret[1]++;
 			}
 		}
 		return ret;
 	}
+
 }
