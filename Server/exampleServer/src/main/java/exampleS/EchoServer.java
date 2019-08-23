@@ -14,6 +14,7 @@ import javax.swing.Timer;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.TimeUnit;
 
 public class EchoServer {
     
@@ -53,10 +54,11 @@ public class EchoServer {
             newData[0] = (int)receive[0];
             newData[1] = (int)receive[1];
                         
-            //TimeUnit.SECONDS.sleep(4);
+            //Thread.sleep(4000);
 
             //Create pck to send the ACK withe the seq recived 
             DsSend = new DatagramPacket(seqIn, seqIn.length, ip , 2345);
+            
              //if (seqQueue.size()>2) {
                  //Send the pck ACK
             ds.send(DsSend);
@@ -72,7 +74,7 @@ public class EchoServer {
                 seqQueue.add(newData);
             } else {
                 //Ignoring the msg cause is repeat
-                //System.out.println("Element is repeated.");
+                System.out.println("Element is repeated.");
             }
 
             //When msg comming is "bye" will close the connection
@@ -86,26 +88,6 @@ public class EchoServer {
             receive = new byte[65535];
 
 
-
-        	// // isBound() method 
-            // System.out.println("IsBound : " + ds.isBound()); 
-    
-            // // isConnected() method 
-            // System.out.println("isConnected : " + ds.isConnected()); 
-    
-            // // getInetAddress() method 
-            // System.out.println("InetAddress : " + ds.getInetAddress()); 
-    
-            // // getPort() method 
-            // System.out.println("Port : " + ds.getPort()); 
-    
-            // // getRemoteSocketAddress() method 
-            // System.out.println("Remote socket address : " +  
-            // ds.getRemoteSocketAddress()); 
-    
-            // // getLocalSocketAddress() method 
-            // System.out.println("Local socket address : " +  
-            // ds.getLocalSocketAddress()); 
         }
     }
 

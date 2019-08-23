@@ -61,6 +61,7 @@ public class EchoClient {
 			System.arraycopy(seq, 0, mes, 0, seqLen);
 			System.arraycopy(buf, 0, mes, seqLen, bufLen);
 
+			//System.out.println("Send it de seq" + mes[0]+ mes[1]);
 			// Step 2 : Create the datagramPacket for sending the data. rdt1.0
 			DpSend = new DatagramPacket(mes, mes.length, ip, 1234);
 			ds.send(DpSend);
@@ -96,27 +97,6 @@ public class EchoClient {
 			// Clear the buffer after every message.
 			receive = new byte[65535];
 			
-
-
-			// // isBound() method 
-            // System.out.println("IsBound : " + ds.isBound()); 
-    
-            // // isConnected() method 
-            // System.out.println("isConnected : " + ds.isConnected()); 
-    
-            // // getInetAddress() method 
-            // System.out.println("InetAddress : " + ds.getInetAddress()); 
-    
-            // // getPort() method 
-            // System.out.println("Port : " + ds.getPort()); 
-    
-            // // getRemoteSocketAddress() method 
-            // System.out.println("Remote socket address : " +  
-            // ds.getRemoteSocketAddress()); 
-    
-            // // getLocalSocketAddress() method 
-            // System.out.println("Local socket address : " +  
-            // ds.getLocalSocketAddress()); 
 			
 		}
 	}
@@ -132,6 +112,7 @@ public class EchoClient {
 				DpRecive = new DatagramPacket(receive, receive.length);
 				dr.receive(DpRecive);
 
+				//System.out.println("Recive seq" + receive[0]+ receive[1]);
 				//Read the seq number in the ACK to compare with the one i sended 
 				int first = receive[0];
 				int second = receive[1];
