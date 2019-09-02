@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="eeb86ef7-9342-49dd-b089-f5498d7d3592" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../.idea/implementingTCP.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/Client.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/libraries/Maven__junit_junit_4_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../exapmpleClient.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Server/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Server/.idea/Server.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Server/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Server/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Server/.idea/libraries/Maven__junit_junit_4_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Server/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Server/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Server/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Server/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Server/exampleServer/exampleServer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/exampleC/EchoClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/exampleC/EchoClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/java/exampleC/EchoClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/java/exampleC/EchoClientTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/exampleC/EchoClient$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/exampleC/EchoClient$reciveClass.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/exampleC/EchoClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/exapmpleClient-exampleC.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/test-classes/exampleC/EchoClientTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Server/exampleServer/target/classes/exampleS/EchoServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Server/exampleServer/target/classes/exampleS/EchoServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Server/exampleServer/target/exampleServer-exampleS.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Server/exampleServer/target/exampleServer-exampleS.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Server/exampleServer/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Server/exampleServer/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Server/exampleServer/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Server/exampleServer/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Server/exampleServer/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Server/exampleServer/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Server/exampleServer/target/surefire-reports/TEST-exampleS.AppTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Server/exampleServer/target/surefire-reports/TEST-exampleS.AppTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Server/exampleServer/target/surefire-reports/exampleS.AppTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Server/exampleServer/target/surefire-reports/exampleS.AppTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Server/exampleServer/target/test-classes/exampleS/AppTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Server/exampleServer/target/test-classes/exampleS/AppTest.class" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectId" id="1QHkxq3xeC7f02tvEUaTz5iRJbL" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="eeb86ef7-9342-49dd-b089-f5498d7d3592" name="Default Changelist" comment="" />
+      <created>1567435158453</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1567435158453</updated>
+      <workItem from="1567435159693" duration="6000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

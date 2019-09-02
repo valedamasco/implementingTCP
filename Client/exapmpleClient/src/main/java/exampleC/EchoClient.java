@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.util.Scanner;
 
 import javax.swing.Timer;
@@ -18,6 +19,8 @@ public class EchoClient {
 	private static boolean ackOk = false;
 	//private static InetAddress ip = null;
 	private static int count = 0;
+	//private static boolean timerOn = false ;
+	private static String msgTimer = "";
 
 	//Socket to be use, pck to send and other to recive 
 	private static DatagramSocket ds = null;
@@ -36,7 +39,7 @@ public class EchoClient {
 		Scanner sc = new Scanner(System.in);
 		// Step 1:Create the socket object to carry the info 
 		ds = new DatagramSocket();
-		dr = new DatagramSocket(2345);
+        setDr(2345);
 		InetAddress ip = InetAddress.getLocalHost();
 		byte buf[] = null;
   
@@ -51,21 +54,40 @@ public class EchoClient {
 			// convert the String input into the byte array.
 			buf = inp.getBytes();
 
-			String pckSend = sendingMsgToServer(buf, ds, ip);
+
+			String messageSend = sendingMsgToServer(buf, ds, ip);
 			
-			if (pckSend.equals("bye")){
+			if (messageSend.equals("bye")){
 				System.exit(0);
 				break;				
 			}
 			
 		}
 	}
+	public boolean getAck(){
+		return ackOk;
+	}
+
+	public byte[] getSeq(){
+		return seq;
+	}
+
+	public byte[] getReceive() {
+		return receive;
+	}
+
+	public  static void setDr(int num) throws SocketException {
+	    dr = new DatagramSocket(num);
+    }
+
+    public int getCount(){
+	    return count;
+    }
 
 	public static String sendingMsgToServer(byte[] buf, DatagramSocket ds, InetAddress ip) throws IOException {
 		if (buf==null){
 			return "Message was null, cant send it.";
 		} else {
-			
 			// rdt2.0 generate the seq number
 			seq = findSeq(seq);
 
@@ -82,37 +104,38 @@ public class EchoClient {
 			DatagramPacket DpSend = new DatagramPacket(mes, mes.length, ip, 1234);
 			ds.send(DpSend);
 
-			initTimer();
+			initTimer(DpSend,ds);
+			//Create a thread to wait the ACK
+			Thread t = new Thread(new reciveClass());
+			t.start();
+
 
 			//If input is "bye", close de connection
 			String input = new String();
 			if (input.equals("bye")) {
 				return "bye";
 			}
-			//Create a thread to wait the ACK
-			Thread t = new Thread(new reciveClass());
-			t.start();
 
 			// Clear the buffer after every message.
 			//receive = new byte[65535];
-
 			return msgSend;
 		}
 	}
 
-	public static void initTimer() {
-		//Timer do actions when is certain time 	
+	public static void initTimer(DatagramPacket DpSend, DatagramSocket ds) {
+		//Timer do actions when is certain time
 		Timer timer = new Timer(1000, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//If there's timeout and I didn's send the message 3 times, resend it 
+				//timerOn = true;
+				//If there's timeout and I didn's send the message 3 times, resend it
 				if ((!ackOk) && (count < 3)){
 					try {
 						System.out.println("Did't recive the ACK, sending again");
 						ds.send(DpSend);
-						count++;
-					} catch (IOException e1) {
-						e1.printStackTrace();
+					} catch (IOException ex) {
+						ex.printStackTrace();
 					}
+					count++;
 				}
 
 			}
@@ -121,14 +144,18 @@ public class EchoClient {
 	}
 
 	public static class reciveClass implements Runnable {
+		private DatagramPacket DpRecive;
 
-		public void run() {	
-			try {			
-				// rdt2.0
-				ackOk = false;
 
-				//Create de pck to send the ACK
-				DatagramPacket DpRecive = new DatagramPacket(receive, receive.length);
+		public void run() {
+			// rdt2.0
+			ackOk = false;
+
+			//Create de pck to send the ACK
+
+			try {
+
+				DpRecive = new DatagramPacket(receive, receive.length);
 				dr.receive(DpRecive);
 
 				//System.out.println("Recive seq" + receive[0]+ receive[1]);
