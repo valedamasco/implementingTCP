@@ -17,16 +17,9 @@ import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
 public class EchoServer {
-    
-    //Socket with two pck, one to recive and other so send 
-//    private static DatagramSocket ds = null;
-//    private static DatagramPacket DsRecive = null;
-//    private static DatagramPacket DsSend = null;
-      private static byte[] seqIn = new byte[2];
 
-//    private static InetAddress ip=null;
-//    private static byte[] receive = new byte[65535];
-//    private static Queue<int[]> seqQueue = null;
+    private static byte[] seqIn = new byte[2];
+
     public static void main(String[] args) throws IOException, InterruptedException {
 
 
@@ -35,13 +28,15 @@ public class EchoServer {
         InetAddress ip = InetAddress.getLocalHost();
         Queue<int[]> seqQueue = new LinkedList<>();
         DatagramPacket DsSend = null;
-        byte[] receive = new byte[65535];
-        DatagramPacket DsRecive = new DatagramPacket(receive, receive.length);
+
+
         
         while (true) {
+            byte[] receive = new byte[65535];
             String message = "";
-            message = waitMsg(ip, ds ,  seqQueue, receive , DsRecive );
-            sendAck(ds , DsSend,  ip );
+            message = waitMsg(ip, ds ,  seqQueue, receive  );
+            System.out.println(message);
+            sendAck(ds , DsSend,  ip, seqIn );
 
             if (message=="bye") {
                 System.out.println("Client sent bye.....EXITING");
@@ -56,7 +51,7 @@ public class EchoServer {
         return seqIn;
     }
 
-    public static byte[] sendAck(DatagramSocket ds , DatagramPacket DsSend, InetAddress ip ) throws IOException {
+    public static byte[] sendAck(DatagramSocket ds , DatagramPacket DsSend, InetAddress ip, byte[] seqIn ) throws IOException {
         //Create pck to send the ACK withe the seq recived
         DsSend = new DatagramPacket(seqIn, seqIn.length, ip , 2345);
         //if (seqQueue.size()>2) {
@@ -67,10 +62,10 @@ public class EchoServer {
     }
 
 
-    public static String waitMsg( InetAddress ip, DatagramSocket ds, Queue<int[]> seqQueue, byte[] receive,DatagramPacket DsRecive) throws IOException {
+    public static String waitMsg( InetAddress ip, DatagramSocket ds, Queue<int[]> seqQueue, byte[] receive) throws IOException {
 
         // Create a DatgramPacket to receive the data. rdt1.0
-
+        DatagramPacket DsRecive = new DatagramPacket(receive, receive.length);
         //Revieve the data in byte buffer.
         ds.receive(DsRecive);
 
@@ -96,13 +91,13 @@ public class EchoServer {
             //System.out.println("Send it de seq" + newData[0]+ newData[1]);
             //Display the msg without the seq
             msgRecive ="Client:-" + data(receive) ;
-            System.out.println("Client:-" + data(receive));
+            //System.out.println("Client:-" + data(receive));
             //Save the seq in queue
             seqQueue.add(newData);
         } else {
             //Ignoring the msg cause is repeat
             msgRecive = "Element is repeated." ;
-            System.out.println("Element is repeated.");
+            //System.out.println("Element is repeated.");
         }
 
         //When msg comming is "bye" will close the connection
@@ -110,7 +105,7 @@ public class EchoServer {
             return "bye";
         }
 
-        receive = new byte[65535];
+        //receive = new byte[65535];
         return msgRecive;
     }
 
