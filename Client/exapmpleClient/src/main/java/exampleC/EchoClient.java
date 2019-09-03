@@ -17,19 +17,14 @@ public class EchoClient {
 
 	
 	private static boolean ackOk = false;
-	//private static InetAddress ip = null;
 	private static int count = 0;
-	//private static boolean timerOn = false ;
-	private static String msgTimer = "";
 
 	//Socket to be use, pck to send and other to recive 
 	private static DatagramSocket ds = null;
 	private static DatagramSocket dr = null;
 	private static DatagramPacket DpSend = null;
-	//private static DatagramPacket DpRecive = null;
 
-	//Var to have the info to send and recive 
-	//private static byte mes[] = null;
+	//Var to have the info to send and recive
 	private static byte[] receive = new byte[65535];
 	//Var to use as de seq number before de message 
 	private static byte seq[] = null;
@@ -45,7 +40,6 @@ public class EchoClient {
   
 				
 		while (true) {
-			//ds.connect(ip, 1234);
 			//count how many message i sended 
 			count = 0;
 
@@ -99,7 +93,6 @@ public class EchoClient {
 			System.arraycopy(buf, 0, mes, seqLen, bufLen);
 			String msgSend = new String(data(mes));
 
-			//System.out.println("Send it de seq" + mes[0]+ mes[1]);
 			// Step 2 : Create the datagramPacket for sending the data. rdt1.0
 			DatagramPacket DpSend = new DatagramPacket(mes, mes.length, ip, 1234);
 			ds.send(DpSend);
@@ -116,8 +109,6 @@ public class EchoClient {
 				return "bye";
 			}
 
-			// Clear the buffer after every message.
-			//receive = new byte[65535];
 			return msgSend;
 		}
 	}
@@ -126,7 +117,6 @@ public class EchoClient {
 		//Timer do actions when is certain time
 		Timer timer = new Timer(1000, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//timerOn = true;
 				//If there's timeout and I didn's send the message 3 times, resend it
 				if ((!ackOk) && (count < 3)){
 					try {
@@ -158,7 +148,6 @@ public class EchoClient {
 				DpRecive = new DatagramPacket(receive, receive.length);
 				dr.receive(DpRecive);
 
-				//System.out.println("Recive seq" + receive[0]+ receive[1]);
 				//Read the seq number in the ACK to compare with the one i sended 
 				int first = receive[0];
 				int second = receive[1];

@@ -52,9 +52,11 @@ public class EchoServer {
     }
 
     public static byte[] sendAck(DatagramSocket ds , DatagramPacket DsSend, InetAddress ip, byte[] seqIn ) throws IOException {
+
         //Create pck to send the ACK withe the seq recived
         DsSend = new DatagramPacket(seqIn, seqIn.length, ip , 2345);
         //if (seqQueue.size()>2) {
+
         //Send the pck ACK
         ds.send(DsSend);
         //}
@@ -88,16 +90,13 @@ public class EchoServer {
 
         //Check if i already recive the seq, so the msg will be ignor
         if (seqQueue.isEmpty() || !isThere(newData[0],newData[1], seqQueue)) {
-            //System.out.println("Send it de seq" + newData[0]+ newData[1]);
             //Display the msg without the seq
-            msgRecive ="Client:-" + data(receive) ;
-            //System.out.println("Client:-" + data(receive));
+            msgRecive ="Client:-" + data(receive);
             //Save the seq in queue
             seqQueue.add(newData);
         } else {
             //Ignoring the msg cause is repeat
             msgRecive = "Element is repeated." ;
-            //System.out.println("Element is repeated.");
         }
 
         //When msg comming is "bye" will close the connection
